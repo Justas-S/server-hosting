@@ -5,7 +5,8 @@ Route::get('/',  [
     'uses'      => 'HomeController@index'
 ]); 
 
-require('auth/auth.routes.php');
+require('auth.routes.php');
+require('user.routes.php');
 
 
 
