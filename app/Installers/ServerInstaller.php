@@ -6,6 +6,7 @@ use phpseclib\Net\SSH2;
 use phpseclib\Crypt\RSA;
 use phpseclib\Net\SFTP;
 use App\Installers\IServerInstaller;
+use App\Installers\Exceptions\InstallerException;
 
 abstract class ServerInstaller implements IServerInstaller
 {
@@ -19,16 +20,19 @@ abstract class ServerInstaller implements IServerInstaller
 
     protected $host;
 
-    public function __construct(SSH2 $ssh, $host, RSA $key)
+    protected $password;
+
+    public function __construct(SSH2 $ssh, $host, $password, RSA $key)
     {
         $this->ssh = $ssh;
         $this->host = $host;
+        $this->password = $password;
         $this->key = $key;
     }
 
     public function getLog()
     {
-        return $log;
+        return $this->log;
     }
 
     public function getErrorLog()
@@ -38,7 +42,7 @@ abstract class ServerInstaller implements IServerInstaller
 
     public function install()
     {
-        $this->log("Starting installation ". $this->osType." ".$this->distro);
+        $this->log("Starting installation");
         if(!$this->isPhpInstalled())
         {
             $this->log("PHP not installed, attempting to resolve from package manager...");
@@ -96,7 +100,7 @@ abstract class ServerInstaller implements IServerInstaller
     private function transferScripts()
     {   
         $sftp = new SFTP($this->host);
-        if (!$sftp->login('root', $this->key)) 
+        if (!$sftp->login('root', $this->password)) 
         {
             throw new InstallerException("Login failed", $sftp->getLastSFTPError());
         }
@@ -117,12 +121,12 @@ abstract class ServerInstaller implements IServerInstaller
 
     private function log($text)
     {
-        $log[] = $text."\n";
+        $this->log[] = $text."\n";
     }
 
     private function error($text)
     {
-        $errorLog[] = $text."\n";
+        $this->errorLog[] = $text."\n";
     }
 
 

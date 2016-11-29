@@ -2,11 +2,14 @@
 
 namespace App\Installers;
 
+use phpseclib\Net\SSH2;
+use phpseclib\Crypt\RSA;
+
 class Ubuntu64Installer extends ServerInstaller 
 {
-    public function __construct(SSH2 $ssh, $host, RSA $key)
+    public function __construct(SSH2 $ssh, $host, $password, RSA $key)
     {
-        parent::__construct($ssh, $host, $key);
+        parent::__construct($ssh, $host, $password, $key);
     }
 
     public function isPhpInstalled()
