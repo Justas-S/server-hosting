@@ -108,6 +108,7 @@ abstract class ServerInstaller implements IServerInstaller
         {
             $sftp->mkdir('scripts');
             $scripts = scandir(storage_path('scripts'));
+            $count = 0;
             foreach($scripts as $script)
             {
                 $scriptPath = storage_path('scripts/'.$script);
@@ -115,10 +116,11 @@ abstract class ServerInstaller implements IServerInstaller
                     continue;
                 try {
                     $sftp->put('scripts/'.$script, file_get_contents($scriptPath));
+                    $count++;
                 } catch(\Exception $e) { $this->log("Cannot transfer script ".$scriptPath); } 
             }
             $sftp->disconnect();
-            return sizeof($scripts);
+            return $count;
         }
         return false;
     }
