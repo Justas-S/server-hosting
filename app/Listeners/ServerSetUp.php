@@ -41,7 +41,7 @@ class ServerSetUp
             $os = $this->getOs();
             if($os == "GNU/Linux") {
                 if($distro == "Ubuntu") {
-                    $installer = new Ubuntu64Installer($this->ssh, $server->ip, $this->getKey($server));
+                    $installer = new Ubuntu64Installer($this->ssh, $server->ip, $server->password, $this->getKey($server));
                 }
             }
         } catch(\ErrorException $e) {
@@ -51,7 +51,12 @@ class ServerSetUp
             $this->ssh->disconnect();
         }
         if($installer) {
-            dd("OKAY", $installer);
+            $success = $installer->install();
+            if($success)
+                dd("Amazing");
+            else {
+                $this->fail($installer->getLog(), $installer->getErrorLog());
+            }
         } else {
             $this->fail("Unsupported version ".$os." ".$distro);
         }
@@ -62,7 +67,7 @@ class ServerSetUp
     {
         //event(new ServerSetUpFailed($msg));
         $this->ssh->disconnect();
-        //dd($msg);
+        dd(func_get_args());
     }
 
     private function getDistro()
