@@ -106,7 +106,7 @@ abstract class ServerInstaller implements IServerInstaller
         }
         else 
         {
-            $scripts = scandir(base_path('scripts'));
+            $scripts = scandir(storage_path('scripts'));
             foreach($scripts as $script)
             {
                 try {
