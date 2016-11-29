@@ -106,12 +106,16 @@ abstract class ServerInstaller implements IServerInstaller
         }
         else 
         {
+            $sftp->mkdir('scripts');
             $scripts = scandir(storage_path('scripts'));
             foreach($scripts as $script)
             {
+                $scriptPath = storage_path('scripts/'.$script);
+                if(!is_file($scriptPath))
+                    continue;
                 try {
-                    $sftp->put('scripts/'.$script, file_get_contents($script));
-                } catch(\Exception $e) {} 
+                    $sftp->put('scripts/'.$script, file_get_contents($scriptPath));
+                } catch(\Exception $e) { $this->log("Cannot transfer script ".$scriptPath); } 
             }
             $sftp->disconnect();
             return sizeof($scripts);
