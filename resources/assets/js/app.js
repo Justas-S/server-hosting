@@ -14,6 +14,7 @@ require('./bootstrap');
  */
 
 Vue.component('example', require('./components/Example.vue'));
+Vue.component('server-form', require('./components/server/server.vue'));
 
 const app = new Vue({
     el: '#app'
