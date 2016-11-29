@@ -7,6 +7,7 @@ Route::get('/',  [
 
 require('auth.routes.php');
 require('user.routes.php');
+require('server.routes.php');
 
 
 
