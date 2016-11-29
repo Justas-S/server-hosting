@@ -4,6 +4,7 @@ namespace App\Installers;
 
 use phpseclib\Net\SSH2;
 use phpseclib\Crypt\RSA;
+use App\Installers\Exceptions\InstallerException;
 
 class Ubuntu64Installer extends ServerInstaller 
 {
