@@ -6,6 +6,8 @@
     </script>
     @include('includes.dependencies')
 
+    <meta name="verify-paysera" content="ceefbee04fc951fa9e7ca08a87142281">
+
     <title>@yield('title')</title>
 </head>
 <body>
