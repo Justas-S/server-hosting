@@ -46,6 +46,7 @@ class GameServer extends Model
 
     /**
      * Calculates the price for this game server for a certain duration
+     *
      * @param $duration_hours duration in hours
      * @return returns the price in cents
      */
