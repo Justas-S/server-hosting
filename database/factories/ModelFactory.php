@@ -48,3 +48,12 @@ $factory->define(App\GameServer::class, function (Faker\Generator $faker) {
         'is_online' => true,
     ];
 });
+
+
+$factory->define(App\Database::class, function (Faker\Generator $faker) {
+    return [
+        'name'           => $faker->word,
+        'user_id'        => factory(App\User::class)->create()->id,
+        'game_server_id' => factory(App\GameServer::class)->create()->id,
+    ];
+});
