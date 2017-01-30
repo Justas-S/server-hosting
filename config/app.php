@@ -167,6 +167,7 @@ return [
          * Package Service Providers...
          */
         Laracasts\Flash\FlashServiceProvider::class,
+        Vinkla\Hashids\HashidsServiceProvider::class,
 
         //
 
@@ -179,6 +180,11 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /*
+         * My Service Providers
+         */
+
+        App\Providers\DatabaseGeneratorProvider::class,
     ],
 
     /*
@@ -226,6 +232,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'Hashids' => Vinkla\Hashids\Facades\Hashids::class,
 
     ],
 

@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
-class GameServerAuthGeneratorProvider extends ServiceProvider
+class DatabaseGeneratorProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.
@@ -23,8 +23,8 @@ class GameServerAuthGeneratorProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton(App\Services\GameServiceAuthGenerator::class, function ($app) {
-            return new GameServiceAuthGenerator();
+        $this->app->singleton(App\Services\DatabaseGenerator::class, function ($app) {
+            return new DatabaseGenerator();
         });
     }
 }
