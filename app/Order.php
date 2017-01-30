@@ -10,7 +10,7 @@ class Order extends Model
 
     protected $fillable = [
         'user_id',
-        'service_id',
+        'game_server_id',
         'duration',
         'email',
         'country',
@@ -21,8 +21,8 @@ class Order extends Model
         return $this->belongsTo(\App\User::class);
     }
 
-    public function service()
+    public function gameserver()
     {
-        return $this->belongsTo(\App\Service::class);
+        return $this->belongsTo(\App\GameServer::class, 'game_server_id', 'id');
     }
 }

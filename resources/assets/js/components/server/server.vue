@@ -18,11 +18,8 @@
             <input type="password" name="password" id="password" class="form-control" v-model="serverData.password" required="required">
         </div>
     </div>
-    <button type="submit" class="btn btn-primary">Pridėti</button>
-    <h1>{{ serverData.provider }}</h1>
-    <h2>{{ serverData.ip }}</h2>
-    <h2>{{ serverData.password }}</h2>
-    <h3>{{ serverData }}</h3>
+    <button v-bind:disabled="buttonDisabled" ref="submitbutton" type="submit" class="btn btn-primary">Pridėti</button>
+    <h1>WAt</h1>
 </form>
 </template>
 
@@ -37,17 +34,29 @@
                     provider: '',
                     ip: '',
                     password: ''
-                }
+                },
+                buttonDisabled: false
             }
         },
         methods: {
             submit: function(event) {
                 console.log(this.serverData);
                 console.log(JSON.stringify(this.serverData));
+                console.log("submitbutton: " + this.$refs.submitbutton);
+                this.buttonDisabled = true;
+                Echo.private('server')
+                    .listen('ServerSetUpFailed', (e) => {
+                        console.log(e);
+                        Echo.leave('server');
+                    })
+                    .listen('ServerUpdated', () => {
+                        console.log(e);
+                    });
                 this.$http.post('/serveris/prideti', JSON.stringify(this.serverData)).then(function(response) {
                     console.log(response);
                 }, function(err) {
                     alert(err);
+                    this.buttonDisabled = false;
                 })
             }
         }

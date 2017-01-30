@@ -31,4 +31,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(\App\Order::class);
     }
+
+    public function getRouteKeyName() 
+    {
+        return 'id';
+    }
 }

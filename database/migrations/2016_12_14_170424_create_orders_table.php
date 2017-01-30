@@ -21,6 +21,7 @@ class CreateOrdersTable extends Migration
             $table->boolean('is_completed');
             $table->string('email');
             $table->string('country');
+            $table->integer('price')->unsigned();
             $table->timestamp('expired_on')->nullable();
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

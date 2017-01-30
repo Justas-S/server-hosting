@@ -26,11 +26,13 @@ class Ubuntu64Installer extends ServerInstaller
 
     public function setSshKey()
     {
-        $key = $this->key->getPublicKey();
+        $key = $this->key->getPublicKey(RSA::PUBLIC_FORMAT_OPENSSH);
         // Success is considered that that appending to 'authorized_keys' file produced no errors
         // And that file now contains the key
-        return $this->ssh->exec('echo "'.$key.'" >> ~/.ssh/authorized_keys') == "" && 
-            strpos($this->ssh->exec('cat ~/.ssh/authorized_keys'), $key) !== false;
+        $output = $this->ssh->exec('echo "'.$key.'" >> ~/.ssh/authorized_keys');
+        dd($this->ssh, $output, 'echo "'.$key.'" >> ~/.ssh/authorized_keys');
+        if($output != "" || strpos($this->ssh->exec('cat ~/.ssh/authorized_keys'), $key) === false)
+            throw new InstallerException("Can not set ssh key", $output);
     }
 
     public function testSshKey()
@@ -48,6 +50,7 @@ class Ubuntu64Installer extends ServerInstaller
     public function disablePasswordLogin()
     {
         $output = $this->ssh->exec("php -f scripts/disable_password_login.php");
+        //dd($output);
         if($output == 'success')
             return $output;
         else

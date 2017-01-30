@@ -13,9 +13,14 @@ require('./bootstrap');
  * the application, or feel free to tweak this setup for your needs.
  */
 
-Vue.component('example', require('./components/Example.vue'));
-Vue.component('server-form', require('./components/server/server.vue'));
+Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#csrf-token').getAttribute('content');
+console.log(document.querySelector('#csrf-token').getAttribute('content'));
+
+Vue.component('order-view', require('./components/order/create.vue'));
+//Vue.component('example', require('./components/Example.vue'));
+//Vue.component('test', require('./components/Test.vue'));
+//Vue.component('server-form', require('./components/server/server.vue'));
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
 });

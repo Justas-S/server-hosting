@@ -11,17 +11,15 @@ class PaySeraAPI
 
     public static function redirectToPayment($data)
     {
-        $wat = \WebToPay::buildRequest(array_merge($data, [
+        $wat = \WebToPay::redirectToPayment(array_merge($data, [
             'projectid'     => env('PAYSERA_PROJECTID', '0'),
-                'orderid'       => 3,
-                'accepturl'     => route('service.accept'),
-                'cancelurl'     => route('service.cancel'),
-                'callbackurl'   => route('service.callback'),
+                'accepturl'     => route('order.accept'),
+                'cancelurl'     => route('order.cancel'),
+                'callbackurl'   => route('order.callback'),
                 'sign_password' => env('PAYSERA_PASSWORD', '0'),
                 'currency'      => 'EUR',
                 'test'          => env('PAYSERA_TEST', '1'),
         ]));
-        dd($wat);
     }
 
     public static function parseResponse(Request $request)

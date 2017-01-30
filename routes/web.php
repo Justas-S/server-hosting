@@ -8,9 +8,8 @@ Route::get('/',  [
 require('auth.routes.php');
 require('user.routes.php');
 require('server.routes.php');
-require('service.routes.php');
-
-
+require('order.routes.php');
+require('gameserver.routes.php');
 
 
 

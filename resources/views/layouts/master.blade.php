@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <head>
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <meta name="csrf-token" id="csrf-token" content="{{ csrf_token() }}" />
     <script>
         window.Laravel = { csrfToken: '{{ csrf_token() }}' };
     </script>
@@ -16,7 +16,9 @@
     <div class="messages row">
         @include('includes.messages')
     </div>
-    @yield('content');
+    <div id="app">
+        @yield('content')
+    </div>
 
     @include('includes.javascript')
 </div>

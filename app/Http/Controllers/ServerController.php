@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests\ServerCreate;
 use phpseclib\Net\SSH2;
 use App\Server;
-use App\Events\ServerInserted;
+//use App\Events\ServerInserted;
+use App\Jobs\SetUpServer;
+use Auth;
 
 class ServerController extends Controller
 {
@@ -19,30 +21,20 @@ class ServerController extends Controller
     {
         $ip = $request->input('ip');
         $password = $request->input('password');
-        /*
-        $ssh = new SSH2($ip);
-        try {
-            $ssh->login('root', $password)
-        } catch(\Exception $e) {
-            return response()->json(['error' => 'cant connect']);
-        }
-
-        if(!$ssh->isAuthenticated())
-            return response()->json('error' => 'auth failed');
-
-
-        $ssh->disconnect();*/
 
         $server = Server::create([
             'ip'        => $ip,
             'password'  => $password,
             'provider'  => $request->input('provider'),
-            'name'      => $request->input('provider')."-".$ip
+            'name'      => $request->input('provider')."-".$ip,
+            'user_id'   => Auth::user()->id,
         ]);
-        event(new ServerInserted($server));
+        //event(new ServerInserted($server));
+        $this->dispatch(new SetUpServer($server));
 
 
         //return redirect()->back();
-        return response('success', 200);
+        //return response('success', 200);
+        return response()->json(['server_id' => $server->id]);
     }
 }
