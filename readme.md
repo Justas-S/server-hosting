@@ -15,4 +15,5 @@
 4. pma
 5. php
 6. disable root password login
-7. setup quotas (https://debian-administration.org/article/47/Limiting_your_users_use_of_disk_space_with_quotas http://www.thegeekstuff.com/2010/07/disk-quota/)
+7. setup quotas (https://debian-administration.org/article/47/Limiting_your_users_use_of_disk_space_with_quotas http://www.thegeekstuff.com/2010/07/disk-quota/ https://www.digitalocean.com/community/tutorials/how-to-enable-user-and-group-quotas)
+8. setup crona su `repquota -a` kad gauti quotos raportus.
