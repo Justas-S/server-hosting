@@ -57,3 +57,15 @@ $factory->define(App\Database::class, function (Faker\Generator $faker) {
         'game_server_id' => factory(App\GameServer::class)->create()->id,
     ];
 });
+
+$factory->define(App\Order::class, function (Faker\Generator $faker) {
+    return [
+        'user_id'       => factory(App\User::class)->create()->id,
+        'duration'      => $faker->randomNumber(3),
+        'is_completed'  => 1,
+        'email'         => $faker->email,
+        'country'       => $faker->countryCode,
+        'price'         => $faker->randomNumber(5),
+        'game_server_id'=> factory(App\GameServer::class)->create()->id,
+    ];
+});
