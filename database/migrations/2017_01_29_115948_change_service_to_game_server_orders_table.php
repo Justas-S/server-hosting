@@ -14,9 +14,6 @@ class ChangeServiceToGameServerOrdersTable extends Migration
     public function up()
     {
         Schema::table('orders', function ($table) {
-            $table->dropForeign('orders_service_id_foreign');
-            $table->dropColumn('service_id');
-
             $table->integer('game_server_id')->unsigned();
             $table->foreign('game_server_id')->references('id')->on('game_servers')->onDelete('cascade');
         });
@@ -32,9 +29,6 @@ class ChangeServiceToGameServerOrdersTable extends Migration
         Schema::table('orders', function ($table) {
             $table->dropForeign('orders_game_server_id_foreign');
             $table->dropColumn('game_server_id');
-
-            $table->integer('service_id')->unsigned();
-            $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');
         });
     }
 }

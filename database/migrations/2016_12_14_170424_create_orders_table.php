@@ -16,7 +16,6 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function(Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->integer('service_id')->unsigned();
             $table->smallInteger('duration')->unsigned();
             $table->boolean('is_completed');
             $table->string('email');
@@ -25,7 +24,6 @@ class CreateOrdersTable extends Migration
             $table->timestamp('expired_on')->nullable();
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');
         });
     }
 
