@@ -31,6 +31,11 @@ class Database extends Model
         return $this->belongsTo(App\GameServer::class);
     }
 
+    public function scopeExpired($query)
+    {
+        return $query->whereNotNull('expired_on');
+    }
+
     public function getIsExpiredAttribute()
     {
         if ($this->expired_on) 

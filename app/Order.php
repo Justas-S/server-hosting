@@ -25,4 +25,9 @@ class Order extends Model
     {
         return $this->belongsTo(\App\GameServer::class, 'game_server_id', 'id');
     }
+
+    public function scopeActive($query)
+    {
+        return $query->whereNull('expired_on');
+    }
 }

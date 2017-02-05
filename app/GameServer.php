@@ -39,6 +39,16 @@ class GameServer extends Model
         return $this->belongsTo(\App\Server::class);
     }
 
+    public function databases()
+    {
+        return $this->hasMany(\App\Database::class);
+    }
+
+    public function ftp_users()
+    {
+        return $this->hasMany(\App\FtpUser::class);
+    }
+
     public function getRouteKeyName()
     {
         return 'id';
@@ -53,5 +63,10 @@ class GameServer extends Model
     public function getPrice($duration_hours) 
     {
         return $this->hourly_cost * $duration_hours * 24 * 100;
+    }
+
+    public function getDatabaseAttribute()
+    {
+        return $this->databases()->whereNotNull('expired_on')->first();
     }
 }
