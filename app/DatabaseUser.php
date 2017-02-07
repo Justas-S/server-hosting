@@ -12,6 +12,8 @@ class DatabaseUser extends Model
         'username',
     ];
 
+    protected $password;
+
     public function user()
     {
         return $this->belongsTo(App\User::class);

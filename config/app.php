@@ -185,6 +185,7 @@ return [
          */
 
         App\Providers\DatabaseGeneratorProvider::class,
+        App\Providers\GameServerServicePrvider::class,
     ],
 
     /*
