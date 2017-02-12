@@ -60,7 +60,7 @@ class ServerSshManager
     {
         $sftp = $this->getSftp($server);
         if ($sftp) {
-            $transfered_file_count = $this->transferDir($sftp, storage_path('scripts'), '/root/scripts');
+            $transfered_file_count = $this->transferDir($sftp, resource_path('scripts'), '/root/scripts');
             $sftp->disconnect();
             return $transfered_file_count;
         }
