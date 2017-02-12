@@ -56,8 +56,8 @@ return [
     */
 
     'from' => [
-        'address' => 'hello@example.com',
-        'name' => 'Example',
+        'address' => 'info@server-host.lt',
+        'name' => 'Serverių nuoma',
     ],
 
     /*

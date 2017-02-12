@@ -16,6 +16,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\ServerInserted' => [
             'App\Listeners\ServerSetUp',
         ],
+        App\Events\GameServerSetUpEvent::class => [
+            App\Listeners\SendGameServerSetUpEmail::class,
+        ],
     ];
 
     /**
