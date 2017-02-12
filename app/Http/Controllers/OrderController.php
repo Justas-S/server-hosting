@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\PaySera\PaySeraAPI;
 use App\Order;
-use App\Jobs\CreateUsers;
+use App\Jobs\SetUpGameServer;
 use App\Game;
 use App\GameServer;
 use Log;
@@ -52,7 +52,7 @@ class OrderController extends Controller
             $order->email = $data['p_email'];
             $oder->save();
 
-            $this->dispatch(new CreateUsers($order->service->server, $username));
+            $this->dispatch(new SetUpGameServer($order->gameserver));
         }
         return "OK";
     }
