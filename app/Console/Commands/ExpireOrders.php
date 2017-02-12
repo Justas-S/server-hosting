@@ -22,14 +22,16 @@ class ExpireOrders extends Command
      */
     protected $description = 'Checks for expired orders';
 
+    protected $server_manager;
     /**
      * Create a new command instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(ServerManager $server_manager)
     {
         parent::__construct();
+        $this->server_manager = $server_manager;
     }
 
     /**
@@ -46,6 +48,7 @@ class ExpireOrders extends Command
 
                 // clean ftp users
                 foreach ($order->gameserver->ftp_users as $ftp_user) {
+                    $this->server_manager->deleteFtpUser($order->gameserver->server, $ftp_user->username);
                     $ftp_user->delete();
                 }
 

@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Carbon\Carbon;
 use App\Database;
+use App\Services\ServerManager;
 
 class CleanDatabases extends Command
 {
@@ -22,14 +23,16 @@ class CleanDatabases extends Command
      */
     protected $description = 'Cleans the expired databases';
 
+    private $server_manager;
     /**
      * Create a new command instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(ServerManager $server_manager)
     {
         parent::__construct();
+        $this->server_manager = $server_manager;
     }
 
     /**
@@ -45,6 +48,14 @@ class CleanDatabases extends Command
             $duration = $database->expired_on->diffInDays($now);
             if ($duration > $gracePeriod) {
                 $database->delete();
+
+                $server = $database->gameserver->server;
+                // Actually remove stuff from remote server
+                $this->server_manager->deleteDatabase($server, $database->name);
+                foreach ($database->dbusers as $dbuser) {
+                    $this->server_manager->deleteDatabaseUser($server, $dbuser->username);
+                    $dbuser->delete();
+                }
             }
         }   
     }
