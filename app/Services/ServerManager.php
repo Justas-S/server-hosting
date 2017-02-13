@@ -3,13 +3,14 @@ namespace App\Services;
 
 use App\Server;
 
+
 class ServerManager 
 {
     protected $ssh_manager;
 
-    public function __construct() 
+    public function __construct(ServerSshManager $ssh_manager) 
     {
-        $this->ssh_manager = make(App\Services\ServerSshManager::class);
+        $this->ssh_manager = $ssh_manager;
     }
 
     public function createDatabase(Server $server, $db_name)

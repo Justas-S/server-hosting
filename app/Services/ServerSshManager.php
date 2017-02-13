@@ -81,21 +81,21 @@ class ServerSshManager
         // List the local scripts
         $scripts = scandir($local_path);
         $count = 0;
-        foreach ($scripts as $script)
-        {   
+        foreach ($scripts as $script) {   
             // If it move around bad things would happen
             if ($script == '.' || $script == '..') {
                 continue;
             }
 
-            $script_path = $local_path."/".$script);
+            $script_path = $local_path."/".$script;
             if (!is_file($script_path))
                 $count += $this->transferDir($sftp, $script_path, $remote_path."/".$script);
             else {
                 try {
-                $sftp->put($remote_path."/".$script, file_get_contents($script_path));
-                $count++;
-            } catch(\Exception $e) { }
+                    $sftp->put($remote_path."/".$script, file_get_contents($script_path));
+                    $count++;
+                } catch(\Exception $e) { }
+            }
         }
         return $count;
     }

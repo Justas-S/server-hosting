@@ -8,6 +8,7 @@ use App\Services\ServerManager;
 
 class ServerServicePrvider extends ServiceProvider
 {
+    protected $defer = true;
     /**
      * Bootstrap the application services.
      *
@@ -30,7 +31,7 @@ class ServerServicePrvider extends ServiceProvider
         }); 
 
         $this->app->singleton(ServerManager::class, function ($app) {
-            return new ServerManager();
+            return new ServerManager($this->app->make(ServerSshManager::class));
         });
     }
 }
