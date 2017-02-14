@@ -1,7 +1,7 @@
-<nav class="nav navbar pull-right">
-    <div class="container-fluid">
+<nav class="nav navbar">
+    <div class="container">
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
+            <ul class="nav navbar-nav pull-right">
                 <li><a href="{{ route('home') }}">Pradžia</a></li>
                 <li><a href="{{ route('gameserver.index') }}">Paslaugos</a></li>
                 @if(Auth::check())

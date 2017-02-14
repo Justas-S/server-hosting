@@ -11,8 +11,8 @@
     <title>@yield('title')</title>
 </head>
 <body>
+@include('includes.navbar')
 <div class="container">
-    @include('includes.navbar')
     <div class="messages row">
         @include('includes.messages')
     </div>
