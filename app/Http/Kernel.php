@@ -54,5 +54,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'IsGuest'       => \App\Http\Middleware\IsGuest::class,
         'IsLoggedIn'    => \App\Http\Middleware\IsLoggedIn::class,
+        'IsGameServerOwner' => \App\Http\Middleware\IsGameServerOwner::class,
     ];
 }

@@ -12,4 +12,9 @@ class GameServerController extends Controller
         $gameservers = GameServer::all();
         return view('gameserver.index', compact('gameservers'));
     }
+
+    public function management(GameServer $gameserver)
+    {
+        return view('gameserver.management', compact('gameserver'));
+    }
 }
