@@ -17,7 +17,7 @@ class IsGameServerOwner
      */
     public function handle($request, Closure $next)
     {     
-        $gameserver = GameServer::findOrFail($request->route('gameserver'));  
+        $gameserver = $request->route('gameserver');
         if (!$gameserver->user || $gameserver->user->id != Auth::user()->id) {
             flash()->error("Jūs neesate išsinuomavęs šio serverio.");
             return back();
