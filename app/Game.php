@@ -15,10 +15,20 @@ class Game extends Model
         'identifier',
     ];
 
-    public function service() 
+    public function server_packages()
     {
-        return $this->belongsTo(\App\Service::class);
+        return $this->hasMany(App\ServerPackage::class);
     }
+
+    public function plugins()
+    {
+        return $this->hasMany(App\Plugin::class);
+    }
+
+    public function getDefaultServerPackageAttribute()
+    {
+        return $this->plugins()->orderBy('created_at', 'DESC')->first();
+    }    
 
     public function getRouteKeyName()
     {
