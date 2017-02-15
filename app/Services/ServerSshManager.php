@@ -17,10 +17,11 @@ class ServerSshManager
      * @param $server remote server to run the script on
      * @param $script script name, no path
      * @param $params array parameters to pass to the script
+     * @param $return_output if set to true function will return output from the script, defaults to false
      *
-     * @return true on successful script execution, false otherwise
+     * @return mixed if output is requested returns a output string, otherwise true on success
      */
-    public function execute(Server $server, $script, array $params)
+    public function execute(Server $server, $script, array $params, $return_output = false)
     {   
         $ssh = $this->getSsh($server);
         if (!isValidScript($ssh, $script)) {
@@ -29,7 +30,11 @@ class ServerSshManager
 
         $output = $ssh->exec('php -f /root/scripts/$script '.implode(' ', $params));
         $ssh->disconnect();
-        if($output == '1')
+
+        if ($return_output)
+            return $output;
+
+        if ($output == '1')
             return true;
 
         Log::error($output);
