@@ -10,7 +10,7 @@ class TestGameServerManager implements GameServerManager
     {
         $server = $gameserver->server;
         $username = $gameserver->ftp_user->username;
-        $faker = Faker\Factory::create();
+        $faker = \Faker\Factory::create();
         return json_encode([
             'port'              => $faker->randomNumber(4),
             'hostname'          => 'SA-MP 0.3 Server',
