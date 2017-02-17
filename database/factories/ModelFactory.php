@@ -69,3 +69,11 @@ $factory->define(App\Order::class, function (Faker\Generator $faker) {
         'game_server_id'=> factory(App\GameServer::class)->create()->id,
     ];
 });
+
+$factory->define(App\FtpUser::class, function (Faker\Generator $faker) {
+    return [
+        'user_id'   => factory(App\User::class)->create()->id,
+        'game_server_id' => factory(App\GameServer::class)->create()->id,
+        'username'  => $faker->userName,
+    ];
+});
