@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Services\ServerSshManager;
 use App\Services\ServerManager;
+use App\Services\GameServerManager;
 
 class ServerServicePrvider extends ServiceProvider
 {
@@ -33,5 +34,12 @@ class ServerServicePrvider extends ServiceProvider
         $this->app->singleton(ServerManager::class, function ($app) {
             return new ServerManager($this->app->make(ServerSshManager::class));
         });
+
+        $this->app->singleton(GameServerManager::class, function ($app) {
+            if (!$app->runningUnitTests()) 
+                return new \App\Services\Impl\SshGameServerManager($this->app->make(ServerSshManager::class));
+            else 
+                return new \App\Services\Impl\TestGameServerManager();
+        }); 
     }
 }
