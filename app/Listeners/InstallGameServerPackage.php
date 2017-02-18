@@ -24,10 +24,10 @@ class InstallGameServerPackage
      * Handle the event.
      *
      * @param  GameServerVersionChangeEvent  $event
-     * @return void
+     * @return true if succes
      */
     public function handle(GameServerVersionChangeEvent $event)
     {
-        $this->manager->installServerPackage($event->gameserver, $event->gameserver->ftp_user->username, $event->$package);
+        return $this->manager->installServerPackage($event->gameserver, $event->gameserver->ftp_user->username, $event->package);
     }
 }
