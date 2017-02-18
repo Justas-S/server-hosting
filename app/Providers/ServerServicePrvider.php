@@ -36,7 +36,7 @@ class ServerServicePrvider extends ServiceProvider
         });
 
         $this->app->singleton(GameServerManager::class, function ($app) {
-            if (!$app->runningUnitTests()) 
+            if (!$app->runningUnitTests() && !$app->isLocal()) 
                 return new \App\Services\Impl\SshGameServerManager($this->app->make(ServerSshManager::class));
             else 
                 return new \App\Services\Impl\TestGameServerManager();
