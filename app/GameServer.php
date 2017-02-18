@@ -49,6 +49,11 @@ class GameServer extends Model
         return $this->hasMany(\App\FtpUser::class);
     }
 
+    public function server_package()
+    {
+        return $this->hasOne(\App\ServerPackage::class, 'id', 'server_package_id');
+    }
+
     public function getRouteKeyName()
     {
         return 'id';
@@ -68,5 +73,10 @@ class GameServer extends Model
     public function getDatabaseAttribute()
     {
         return $this->databases()->whereNotNull('expired_on')->first();
+    }
+
+    public function getFtpUserAttribute()
+    {
+        return $this->ftp_users()->first();
     }
 }
