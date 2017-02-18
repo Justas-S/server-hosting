@@ -1,5 +1,7 @@
 <script src="{{ elixir("js/app.js") }}"></script>
 
+<script src="https://use.fontawesome.com/55d7178918.js"></script>
+
 <script src="https://code.jquery.com/jquery-3.1.1.js"
   integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
   crossorigin="anonymous"></script>
