@@ -1,13 +1,13 @@
 <template>
     <div class="gameserver-general-container">
-        <form>
+        <form class="form">
             <div class="form-group row">
                 <label class="col-form-label col-md-3" for="version">Versija</label>    
                 <div class="col-md-4">
                     <input type="text" name="version" disabled="1" id="version" class="form-control" v-model="version">
                 </div>
                 <div class="col-md-2">
-                    <a href="#">Keisti</a>
+                    <a :href="'/zaidimu_serveriai/' + gameserverId + '/valdymas/versija'">Keisti</a>
                 </div>
             </div>
             <div class="row form-group" :class="{ 'has-error': errors.language }">
@@ -15,21 +15,21 @@
                 <div class="col-md-4">
                     <input type="text" name="lang" id="lang" class="form-control" :disabled="disabled" v-model="config.language" />
                 </div>
-                <label class="text-danger" v-if="errors.language" v-text="errors.language[0]"></label>
+                <small class="text-danger" v-if="errors.language" v-text="errors.language[0]"></small>
             </div>
             <div class="row form-group" :class="{ 'has-error': errors.mapname }">
                 <label class="col-form-label col-md-3" for="map">Žemėlapis</label>
                 <div class="col-md-4">
                     <input type="text" name="map" id="map" class="form-control" :disabled="disabled" v-model="config.mapname" />
                 </div>
-                <label class="text-danger" v-if="errors.mapname" v-text="errors.mapname[0]"></label>
+                <small class="text-danger" v-if="errors.mapname" v-text="errors.mapname[0]"></small>
             </div>
             <div class="row form-group" v-bind:class="{ 'has-error': errors.maxnpc }">
                 <label class="col-form-label col-md-3" for="maxnpc">Max. NPC</label>
                 <div class="col-md-4">
                     <input type="number" id="maxnpc" name="maxnpc" class="form-control" :disabled="disabled" v-model="config.maxnpc" />
                 </div>
-                <label class="text-danger" v-if="errors.maxnpc" v-text="errors.maxnpc[0]"></label>
+                <small class="text-danger" v-if="errors.maxnpc" v-text="errors.maxnpc[0]"></small>
             </div>
             <div class="row form-group" :class="{ 'has-error': errors.rcon_password }">
                 <label class="col-form-label col-md-3" for="rcon">RCON slaptažodis<i v-show="loadingRcon" class="fa fa-spinner fa-spin"></i></label>
@@ -37,7 +37,7 @@
                     <input type="text" name="rcon" id="rcon" class="form-control" :disabled="disabled || rconDisabled" v-model="config.rcon_password" />
                 </div>
                 <a href="#auth-modal" data-toggle="modal" class="col-md-2" v-if="!config.rcon_password">Rodyti</a>
-                <label class="text-danger" v-if="errors.rcon_password" v-text="errors.rcon_password[0]"></label>
+                <small class="text-danger" v-if="errors.rcon_password" v-text="errors.rcon_password[0]"></small>
             </div>
             <div class="row form-group">
                 <div class="col-md-2 offset-md-6">
