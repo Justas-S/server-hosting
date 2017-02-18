@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Ajax;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\SampConfigStore;
 use App\GameServer;
 use App\User;
 use Hash;
@@ -20,6 +21,7 @@ class GameServerController extends Controller
 
     public function getConfig(GameServer $gameserver) 
     {
+        session()->forget('double_auth');
         $config = $this->gameserver_manager->getServerConfig($gameserver);
         $decoded = json_decode($config);
         // Remove rcon password, it has a different endpoint
@@ -27,9 +29,19 @@ class GameServerController extends Controller
         return json_encode($decoded);
     }
 
-    public function postConfig(GameServer $gameserver)
+    public function postConfig(GameServer $gameserver, SampConfigStore $request)
     {
-        
+        $data = [
+            'language' => $request->input('language'),
+            'maxnpc'   => $request->input('maxnpc'),
+            'mapname'  => $request->input('mapname'),
+        ];
+        if ($request->has('rcon_password')) $data['rcon_password'] = $request->get('rcon_password');
+
+        if ($this->gameserver_manager->setServerConfig($gameserver, json_encode($data))) {
+            return response('', 200);
+        }
+        return response('fail', 500);
     }
 
     public function show(GameServer $gameserver) 
@@ -46,6 +58,7 @@ class GameServerController extends Controller
         $user = User::where('username', $username)->first();
 
         if ($user && Hash::check($password, $user->password)) {
+            session(['double_auth' => 'true']);
             return json_encode(json_decode($this->gameserver_manager->getServerConfig($gameserver))->rcon_password);
         } else {
             return response('Neteisingas vartotojo vardas ir/ar slaptažodis', 401);
