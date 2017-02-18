@@ -12,4 +12,16 @@ Route::group(['middleware' => 'IsLoggedIn', 'prefix' => '/zaidimu_serveriai', 'a
         'uses'      => 'GameServerController@management',
         'middleware'=> 'IsGameServerOwner'
     ]);
+
+    Route::get('{gameserver}/valdymas/versija', [
+        'as'        => 'management.version',
+        'uses'      => 'GameServerController@manageVersion',
+        'middleware'=> 'IsGameServerOwner'
+    ]);
+
+    Route::post('{gameserver}/valdymas/versija', [
+        'as'        => 'management.version.post',
+        'uses'      => 'GameServerController@postVersion',
+        'middleware'=> 'IsGameServerOwner'
+    ]);
 });

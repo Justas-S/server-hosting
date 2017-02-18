@@ -17,6 +17,6 @@ class ServerPackage extends Model
 
     public function game()
     {
-        return $this->belongsTo(App\Game::class);
+        return $this->belongsTo(\App\Game::class);
     }
 }   

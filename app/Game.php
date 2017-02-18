@@ -17,7 +17,7 @@ class Game extends Model
 
     public function server_packages()
     {
-        return $this->hasMany(App\ServerPackage::class);
+        return $this->hasMany(\App\ServerPackage::class);
     }
 
     public function plugins()
