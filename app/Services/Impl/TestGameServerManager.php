@@ -3,6 +3,7 @@ namespace App\Services\Impl;
 
 use App\Services\GameServerManager;
 use App\GameServer;
+use App\ServerPackage;
 
 class TestGameServerManager implements GameServerManager
 {
@@ -31,5 +32,10 @@ class TestGameServerManager implements GameServerManager
         $server = $gameserver->server;
         $username = $gameserver->ftp_user->username;
         return $server && $username;
+    }
+
+    public function installServerPackage(GameServer $gamesrever, $username, ServerPackage $server_package)
+    {
+        return true;
     }
 }

@@ -4,6 +4,7 @@ namespace App\Services\Impl;
 use App\Services\ServerSshManager;
 use App\Services\GameServerManager;
 use App\GameServer;
+use App\ServerPackage;
 
 class SshGameServerManager implements GameServerManager
 {
@@ -23,5 +24,10 @@ class SshGameServerManager implements GameServerManager
     {
         $config = addslashes($config);
         return $this->ssh_manager->execute($gameserver->server, 'set_servercfg.php', [$gameserver->ftp_user->username, "'".$config."'" ]);
+    }
+
+    public function installServerPackage(GameServer $gamesrever, $username, ServerPackage $server_package)
+    {
+        return $this->ssh_manager->execute($gameserver->server, 'install_server_package.php', [$username, $server_package->url]);
     }
 }
