@@ -77,3 +77,12 @@ $factory->define(App\FtpUser::class, function (Faker\Generator $faker) {
         'username'  => $faker->userName,
     ];
 });
+
+$factory->define(\App\ServerPackage::class, function (Faker\Generator $faker) {
+    return [
+        'game_id'   => factory(App\Game::class)->create()->id,
+        'name'      => $faker->word,
+        'version'   => $faker->word,
+        'url'       => $faker->url,
+    ];
+});
