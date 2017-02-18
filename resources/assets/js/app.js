@@ -17,6 +17,9 @@ Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#csrf-token').
 console.log(document.querySelector('#csrf-token').getAttribute('content'));
 
 Vue.component('order-view', require('./components/order/create.vue'));
+Vue.component('gameserver-management-form', require('./components/gameserver/management.vue'));
+Vue.component('auth-modal', require('./components/auth/auth-modal.vue'));
+
 //Vue.component('example', require('./components/Example.vue'));
 //Vue.component('test', require('./components/Test.vue'));
 //Vue.component('server-form', require('./components/server/server.vue'));
