@@ -16,3 +16,8 @@ use Illuminate\Http\Request;
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:api');
+
+
+Route::get('/api/gameservers/{ip}/price', function($ip) {
+    return \App\GameServer::where('ip', '=', $ip)->firstOrFail()->hourly_cost;
+});
