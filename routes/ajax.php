@@ -22,4 +22,14 @@ Route::group(['middleware' => 'IsGameServerOwner', 'prefix' => '/gameservers', '
         'as'        => 'rcon',
         'uses'      => 'GameServerController@rcon',
     ]);
+
+    Route::get('/{gameserver}/plugins', [
+        'as'        => 'plugins',
+        'uses'      => 'GameServerController@plugins',
+    ]);
+
+    Route::post('/{gameserver}/plugins', [
+        'as'        => 'plugins.post',
+        'uses'      => 'GameServerController@postPlugins'
+    ]);
 });

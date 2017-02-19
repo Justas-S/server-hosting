@@ -1,7 +1,6 @@
 <?php 
 
-
-function toJson($content) {
+function toArray($content) {
     $lines = explode("\n", $content);
     $output = [];
     foreach ($lines as $line) {
@@ -26,11 +25,18 @@ function toJson($content) {
             $output[$key] = $value;
         }
     }
-    return json_encode($output);
+    return $output;
+}
+
+function toJson($content) {
+    return json_encode(toArray($content));
 }
 
 function toString($json) {
-    $data = json_decode($json);
+    return arrayToString(json_decode($json));
+}
+
+function arrayToString(array $data) {
     $file_content = "";
     foreach ($data as $key => $value) {
         if (is_array($value)) {

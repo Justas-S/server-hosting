@@ -18,6 +18,7 @@ console.log(document.querySelector('#csrf-token').getAttribute('content'));
 
 Vue.component('order-view', require('./components/order/create.vue'));
 Vue.component('gameserver-management-form', require('./components/gameserver/management.vue'));
+Vue.component('gameserver-plugins', require('./components/gameserver/plugins.vue'));
 Vue.component('auth-modal', require('./components/auth/auth-modal.vue'));
 
 //Vue.component('example', require('./components/Example.vue'));

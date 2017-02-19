@@ -21,3 +21,20 @@ Route::get('/user', function (Request $request) {
 Route::get('/api/gameservers/{ip}/price', function($ip) {
     return \App\GameServer::where('ip', '=', $ip)->firstOrFail()->hourly_cost;
 });
+
+
+Route::get('/server-package/', function (Request $request) {
+    $game_id = $request->get('game_id');
+    if ($game_id) 
+        return App\ServerPackage::where('game_id', $game_id)->get();
+    else 
+        return App\ServerPackage::all();
+});
+
+Route::get('/plugin/', function (Request $request) {
+    $game_id = $request->get('game_id');
+    if ($game_id) 
+        return App\Plugin::where('game_id', $game_id)->get();
+    else 
+        return App\Plugin::all();
+});

@@ -15,6 +15,7 @@
         </div>
         <hr>
         <gameserver-management-form gameserver-id="{{ $gameserver->id }}"></gameserver-management-form>
+        <gameserver-plugins gameserver-id="{{ $gameserver->id }}" game-id="{{ $gameserver->game->id }}"></gameserver-plugins>
         <!-- <div class="gameserver-general-container">
             <form>
                 <div class="row form-group">

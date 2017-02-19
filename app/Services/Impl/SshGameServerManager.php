@@ -5,6 +5,7 @@ use App\Services\ServerSshManager;
 use App\Services\GameServerManager;
 use App\GameServer;
 use App\ServerPackage;
+use App\Plugin;
 
 class SshGameServerManager implements GameServerManager
 {
@@ -30,4 +31,15 @@ class SshGameServerManager implements GameServerManager
     {
         return $this->ssh_manager->execute($gameserver->server, 'install_server_package.php', [$username, $server_package->url]);
     }
+
+    public function installPlugin(GameServer $gameserver, $username, Plugin $plugin)
+    {
+        return $this->ssh->manager->execute($gameserver->server, 'install_plugin.php', [$username, $plugin->url]);
+    }
+
+    public function clearPlugins(GameServer $gameserver, $username)
+    {
+        return $this->ssh->manager->execute($gameserver->server, 'clear_plugins.php', [$username]);
+    }
+
 }

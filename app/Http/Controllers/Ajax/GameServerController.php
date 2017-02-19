@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Ajax;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\SampConfigStore;
+use App\Events\GameServerPluginInstallEvent;
 use App\GameServer;
 use App\User;
 use Hash;
@@ -64,4 +65,22 @@ class GameServerController extends Controller
             return response('Neteisingas vartotojo vardas ir/ar slaptažodis', 401);
         }
     }   
+
+    public function plugins(GameServer $gameserver)
+    {
+        $config = json_decode($this->gameserver_manager->getServerConfig($gameserver));
+        $plugins = [];
+        foreach ($config->plugins as $plugin) {
+            $plugin = rtrim($plugin, '.so');
+            $plugins[] = \App\Plugin::where('name', '=', $plugin)->first();
+        }
+        return json_encode($plugins);
+    }
+
+    public function postPlugins(GameServer $gameserver, Request $request) 
+    {
+        $plugins = \App\Plugin::whereIn('id', $request->get('plugins'))->get();
+        event(new GameServerPluginInstallEvent($gameserver, $plugins->toBase()));
+        return response('success', 200);
+    }
 }
